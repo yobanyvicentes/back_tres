@@ -4,6 +4,20 @@ const TipoEquipo = require('../models/TipoEquipo');
 //importar request y response
 const {request, response} = require('express');
 
+const getTipo = async (req = request, res = response) => {
+    try {
+        let tipoEquipo = await TipoEquipo.findById(req.params.TipoID);
+        if(!tipoEquipo){
+            return res.status(400).send('el Tipo del Equipo a aactualizar no existe')
+        };
+
+        res.send(tipoEquipo);
+
+    } catch (error) {
+        res.status(500).send('hubo un error');
+    }
+};
+
 const getTipos = async (req = request , res = response) => {
     try {
         const tipoEquipos = await TipoEquipo.find();
@@ -59,4 +73,4 @@ const putTipo = async (req = request, res = response) => {
     }
 };
 
-module.exports = {getTipos, postTipo, putTipo}
+module.exports = {getTipo, getTipos, postTipo, putTipo}

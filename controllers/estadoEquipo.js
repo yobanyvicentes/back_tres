@@ -5,6 +5,18 @@ const EstadoEquipo = require('../models/EstadoEquipo');
 const {request, response} = require('express');
 
 
+const getEstado = async (req = request, res = response) => {
+    try {
+        let estadoEquipo = await EstadoEquipo.findById(req.params.estadoID);
+        if (!estadoEquipo) {
+            return res.status(400).send('el estadoEquipo a actualizar no existe').json;
+        };
+        res.send(estadoEquipo);
+    } catch (error) {
+        res.status(500).send('hubo un error');
+    }
+};
+
 const getEstados = async (req = request ,res = response) => {
     try {
         const estadoEquipos = await EstadoEquipo.find();
@@ -39,7 +51,7 @@ const putEstado = async (req = request, res = response) => {
     try {
         let estadoEquipo = await EstadoEquipo.findById(req.params.estadoID);
         if(!estadoEquipo){
-            return res.status(400).send('el estado del Equipo a actualizar no existe')
+            return res.status(400).send('el estado del Equipo a actualizar no existe');
         };
 
         const nombreExistente = await EstadoEquipo.findOne({nombre: req.body.nombre, _id:{$ne: estadoEquipo._id}});
@@ -61,4 +73,4 @@ const putEstado = async (req = request, res = response) => {
 };
 
 
-module.exports = {getEstados, postEstado, putEstado};
+module.exports = {getEstado, getEstados, postEstado, putEstado};

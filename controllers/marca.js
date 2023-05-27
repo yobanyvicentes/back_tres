@@ -4,12 +4,24 @@ const Marca = require('../models/Marca');
 //importar req y res
 const { request, response } = require('express');
 
+const getMarca = async (req = request, res = response) => {
+    try {
+        let marca = await Marca.findById(req.params.idMarca);
+        if (!marca) {
+            return res.status(400).send('la marca a actualizar no existe').json;
+        };
+        res.send(marca);
+    } catch (error) {
+        res.status(500).send('hubo un error');
+    }
+};
+
 const getMarcas = async (req = request, res = response) => {
     try {
         const marcas = await Marca.find();
         res.send(marcas);
     } catch (error) {
-        res.status(500).send('hay un error');
+        res.status(500).send('hay un error').json();
     }
 };
 
@@ -64,4 +76,4 @@ const putMarca =  async (req = request, res = response) => {
 
 
 
-module.exports = {getMarcas, postMarca, putMarca};
+module.exports = {getMarca, getMarcas, postMarca, putMarca};
