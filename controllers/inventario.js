@@ -42,7 +42,6 @@ const getInventario = async (req = request, res= response) => {
         if(!inventario){
             return res.status(400).send('el id del inventario a actualizar no existe');
         };
-
         res.send(inventario);
     } catch (error) {
         res.status(500).send('hubo un error');
