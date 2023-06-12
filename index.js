@@ -22,6 +22,7 @@ app.use('/marca', require('./router/marca'));
 app.use('/estado-equipo', require('./router/estadoEquipo'));
 app.use('/tipo-equipo', require('./router/tipoEquipo'));
 app.use('/usuario', require('./router/usuario'));
+app.use('/inventario', require('./router/inventario'));
 
 // -----------------------------------------------------------
 //puerto (que sea puerto en el archivo .env en el string PORT, y en caso de no estar definido, usar el 8080 por defecto)
